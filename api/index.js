@@ -7,6 +7,7 @@ const helmet = require('helmet')
 const mongoose = require('mongoose')
 const userRoute = require('./routes/usersRoutes')
 const authRoute = require("./routes/authRoutes");
+const postRoute = require('./routes/postRoutes')
 dotenv.config()
 
 mongoose.connect(process.env.MONGO_URL, {
@@ -25,10 +26,11 @@ app.use(helmet())
 app.get('/' , (req,res)=>{
     res.send('Welcome to Home Page')
 })
-
+app.use("/api/posts", postRoute);
 app.use('/api/users' , userRoute)
-
 app.use("/api/auth", authRoute);
+
+
 
 app.listen(8800 , ()=>{
     console.log("backend Server is Running")
